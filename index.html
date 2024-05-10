@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <title>Corp Commenter</title>
+</head>
+<body>
+    <div class="background"></div>
+
+    <div class="container">
+        <header class="container__header">
+            <section class="logo">
+                <i class="fa-solid fa-mountain-sun logo__icon"></i>
+                <p class="logo__title">Corp<span class="logo__title--special">Comment</span></p>
+            </section>
+
+            <h1 class="title-heading">
+                Give Feedback. <span class="title-heading--special">Publicly.</span> 
+            </h1>
+            <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="Enter your feedback here, remember to #hashtag the company &#xF303;" spellcheck="false" style="font-family: Inter, FontAwesome;"></textarea>
+            <section class="textareaBottom">
+                <span class="textareaBottom__characters">150</span>
+                <button type="submit" class="textareaBottom__submit">SUBMIT</button>
+            </section>
+        </header>
+
+        <main class="container__body">
+            <ol class="feedbacks">
+                <li class="feedback__item">
+                   Feedback row 
+                </li>
+            </ol>
+        </main> 
+    </div>
+
+    <ul class="company">
+        <li class="company__name">
+            <button class="company__name--hashtag">#company</button>
+        </li>
+    </ul>
+
+    <footer class="footer">
+        <small class="copyright">&copy; Copright by SyncPro. All rights reserved.</small>
+        <small class="data">Intended for learning or your portfolio. Not allowed to use as your own teaching material.</small>
+    </footer>
+</body>
+</html>
