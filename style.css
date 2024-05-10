@@ -66,6 +66,45 @@ textarea becomes textarea__textarea
 textareaBottom__characters becomes textarea__textarea--characters
 textareaBottom__submit becomes textarea__textarea--submit */
 .textarea{
+
+}
+.textarea__textarea{
+    width: 575px;
+    height: 120px;
+    font-size: 18px;
+    background-color: #0e1111;
+    opacity: 1;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: block;
+    margin-bottom: 30px;
+}
+.textarea__textarea--characters{
+    color: white;
+    font-size: 13px;
+    position: absolute;
+    left: 500px;
+    bottom: 395px;
+    /* values for half screen
+     position: absolute;
+    left: 100px;
+    bottom: 380px; */
+}
+.textarea__textarea--submit{
+    font-size: 13px;
+    padding: 5px 16px;
+    background-color: #FAF9F6;
+    border-radius: 16px;
+    position: absolute;
+    right: 500px;
+    bottom: 395px; 
+    /* values for half screen
+    position: absolute;
+    right: 100px;
+    bottom: 380px; */
+}
+
+/* .textarea{
     width: 575px;
     font-size: 18px;
     background-color: #0e1111;
@@ -85,7 +124,7 @@ textareaBottom__submit becomes textarea__textarea--submit */
     background-color: #FAF9F6;
     border-radius: 16px;
 
-}
+} */
 
 
 .container__body{
