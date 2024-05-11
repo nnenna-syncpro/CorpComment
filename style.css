@@ -110,7 +110,8 @@ textareaBottom__submit becomes textarea__textarea--submit */
     font-size: 13px;
     position: absolute;
     left: 500px;
-    bottom: 395px;
+    top: 290px;
+    /* bottom: 395px; */
     /* values for half screen
      position: absolute;
     left: 100px;
@@ -124,7 +125,7 @@ textareaBottom__submit becomes textarea__textarea--submit */
    
     position: absolute;
     right: 500px;
-    bottom: 395px; 
+    top: 280px; 
 
     /* position: absolute;
     left: 62%;

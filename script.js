@@ -1,6 +1,8 @@
 const textareaEl = document.querySelector('.textarea__textarea');
 const charactersLeftEl = document.querySelector('.textarea__textarea--characters');
-const listEl = document.querySelector('.company');
+const companyListEl = document.querySelector('.company');
+
+const listCompanyEl = document.querySelector('.company__name');
 const hashtag = document.querySelector('.company__name--hashtag');
 
 
@@ -60,10 +62,12 @@ fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
 //validate input and handle form submission
 const submitFormEl = document.querySelector('#submitForm');
 
+
 async function sendFormData(){
     //associate the FormData object with the form element
     const formData = new FormData(submitFormEl); //can .get, set, delete, append data from form
-
+    console.log(formData.get('text'));
+    const data = Object.fromEntries(formData);
     try{
         const response = await fetch('https://reqres.in/api/users',{
             method: "POST",
@@ -72,7 +76,7 @@ async function sendFormData(){
                 'Content-Type': 'application/json'
             },
             //set the FormData instance as the request body
-            body: JSON.stringify(formData),
+            body: JSON.stringify(data),
         });
         console.log(await response.json());
     } catch(error){
@@ -130,9 +134,20 @@ submitFormEl.addEventListener('submit', (event) => {
 
 //when hashtag buttons are clicked filter data from API to display only those items
 //on hover effect for #buttons
-listEl.addEventListener('click', (company) => {
-    console.log(listEl.value);
-    console.log(hashtag);
-})
+function onclickHandler(company){
+    
+}
+
+companyListEl.addEventListener('click', function(event){
+    console.log(event.target);
+
+    //get the name of company
+    const clickedCompany = event.target;
+
+    //use name of company to filter data
+
+    //display filtered result
+
+});
 
 //display data list in descending order of upvote
