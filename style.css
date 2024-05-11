@@ -34,6 +34,7 @@ ul{
 
 .container__div{
     margin-top: 55px;
+    flex: 2;
 }
 
 
@@ -75,7 +76,7 @@ textarea becomes textarea__textarea
 textareaBottom__characters becomes textarea__textarea--characters
 textareaBottom__submit becomes textarea__textarea--submit */
 .textarea{
-
+    position: relative;
 }
 .textarea__textarea{
     width: 575px;
@@ -87,6 +88,7 @@ textareaBottom__submit becomes textarea__textarea--submit */
     padding: 10px 20px;
     display: block;
     margin-bottom: 30px;
+    color: #FAF9F6;
 }
 .textarea__textarea--characters{
     color: white;
@@ -104,14 +106,35 @@ textareaBottom__submit becomes textarea__textarea--submit */
     padding: 5px 16px;
     background-color: #FAF9F6;
     border-radius: 20px;
+   
     position: absolute;
     right: 500px;
     bottom: 395px; 
+
+    /* position: absolute;
+    left: 62%;
+    bottom: 395px;
+    transform: translateX(-50%); */
+
     /* values for half screen
     position: absolute;
     right: 100px;
     bottom: 380px; */
 }
+
+/* .textarea__textarea--submit{
+    font-size: 13px;
+    padding: 5px 16px;
+    background-color: #FAF9F6;
+    border-radius: 20px;
+    position: absolute;
+    right: 500px;
+    bottom: 395px; 
+    values for half screen
+    position: absolute;
+    right: 100px;
+    bottom: 380px;
+} */
 
 /* .textarea{
     width: 575px;
@@ -155,7 +178,7 @@ textareaBottom__submit becomes textarea__textarea--submit */
 /* END OF CONTAINER */
 
 .company{
-
+    flex: 1;
 }
 .company__name{
     color: #3b444b;
@@ -180,4 +203,5 @@ textareaBottom__submit becomes textarea__textarea--submit */
 .footer{
     writing-mode:vertical-rl;
     transform: rotate(-180deg); /* transform: scale(-1,-1); */
+    flex: 1;
 }
