@@ -99,6 +99,12 @@ textareaBottom__submit becomes textarea__textarea--submit */
     margin-bottom: 30px;
     color: #FAF9F6;
 }
+.textarea__textarea--success{
+    border: 1px solid green;
+}
+.textarea__textarea--fail{
+    border: 1px solid red;
+}
 .textarea__textarea--characters{
     color: white;
     font-size: 13px;
@@ -185,6 +191,29 @@ textareaBottom__submit becomes textarea__textarea--submit */
     margin: 10px;
 }
 
+.feedback__table{
+
+}
+.feedback__row{
+      
+}
+td{
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+}
+.feedback__row--upvote{
+    text-align: center;
+}
+.feedback__row--badgeLetter{
+    text-align: center;
+    
+}
+.feedback__row--text{
+
+}
+.feedback__row--daysAgo{
+
+}
 /* END OF CONTAINER */
 
 .company{

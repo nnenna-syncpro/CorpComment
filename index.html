@@ -29,11 +29,14 @@
             <h1 class="title-heading">
                 Give Feedback. <span class="title-heading--special">Publicly.</span> 
             </h1>
-            <section class="textarea"></section>
-                <textarea name="" id="" cols="30" rows="10" class="textarea__textarea" placeholder="Enter your feedback here, remember to #hashtag the company &#xF303;" spellcheck="false" maxlength="150"></textarea>
+            <form action="" method="post" id="submitForm">
+                <section class="textarea"></section>
+                <textarea name="" id="feedback" type="text" class="form-control textarea__textarea" placeholder="Enter your feedback here, remember to #hashtag the company &#xF303;" spellcheck="false" maxlength="150"></textarea>
                 <span class="textarea__textarea--characters">150</span>
                 <button type="submit" class="textarea__textarea--submit">SUBMIT</button>
             </section>
+            </form>
+            
         </header>
 
         <!-- <main class="container__main">
@@ -47,7 +50,7 @@
         <main class="container__main">
             <table class="feedback__table">
                 <tr class="feedback__row">
-                    <td class="feedback__row--upvote"></td>
+                    <td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i></td>
                     <td class="feedback__row--badgeLetter"></td>
                     <td class="feedback__row--text"></td>
                     <td class="feedback__row--daysAgo"></td>
