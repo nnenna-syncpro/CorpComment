@@ -17,8 +17,19 @@ function charactersLeft(){
 
 textareaEl.addEventListener('input', charactersLeft);
 
-//fetch company feedback data from api
+//fetch and display company feedback data from api
 fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
-.then(response => {return response.json()})
-.then(data => console.log(data))
+.then(response => {return response.json();})
+.then(data => {
+    data.feedbacks.forEach(company => {
+        const htmlMarkup = `<li class="feedback__item">${company.upvoteCount} ${company.badgeLetter} ${company.company} ${company.text} ${company.daysAgo} </li>`;
+        document.querySelector('.feedbacks').insertAdjacentHTML('afterend', htmlMarkup);
+    });
+})
 .catch(function(error){console.log("Error: " + error)});
+
+//fetch company feedback data from api and display on console
+// fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
+// .then(response => {return response.json()})
+// .then(data => console.log(data))
+// .catch(function(error){console.log("Error: " + error)});
