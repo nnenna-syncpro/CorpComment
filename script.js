@@ -16,3 +16,9 @@ function charactersLeft(){
 }
 
 textareaEl.addEventListener('input', charactersLeft);
+
+//fetch company feedback data from api
+fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
+.then(response => {return response.json()})
+.then(data => console.log(data))
+.catch(function(error){console.log("Error: " + error)});
