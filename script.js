@@ -23,8 +23,12 @@ fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
 .then(response => {return response.json();})
 .then(data => {
     data.feedbacks.forEach(company => {
-        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote">${company.upvoteCount}</td><td class="feedback__row--badgeLetter">${company.badgeLetter}</td>
-        <td class="feedback__row--text">${company.company} ${company.text}</td>
+        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td><td class="feedback__row--badgeLetter">${company.badgeLetter}</td>
+
+        <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
+        <span class="feedback__row--textFeedback"> ${company.text}
+        </span></td>
+
         <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
         document.querySelector('.feedback__row').insertAdjacentHTML('afterend', htmlMarkup);
     });

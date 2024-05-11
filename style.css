@@ -197,22 +197,33 @@ textareaBottom__submit becomes textarea__textarea--submit */
 .feedback__row{
       
 }
+
 td{
-    border-bottom: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
+   
     padding: 12px;
 }
 .feedback__row--upvote{
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    font-size: 14px;
+}
+.fa-caret-up{
+    color: darkgray;
 }
 .feedback__row--badgeLetter{
     text-align: center;
     
 }
 .feedback__row--text{
-
+    display: flex;
+    flex-direction: column;
 }
 .feedback__row--daysAgo{
-
+    font-weight: 300;
+    font-size: 14px;
 }
 /* END OF CONTAINER */
 
