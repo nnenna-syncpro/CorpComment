@@ -183,6 +183,8 @@ textareaBottom__submit becomes textarea__textarea--submit */
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
+    overflow-y: auto;
+    margin-bottom: 55px;
 }
 .feedbacks{
     
@@ -197,7 +199,12 @@ textareaBottom__submit becomes textarea__textarea--submit */
 .feedback__row{
       
 }
-
+.feedback__row--textCompany{
+    text-transform: uppercase;
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
 td{
     /* border: 1px solid #ddd; */
    
@@ -209,21 +216,37 @@ td{
     flex-direction: column;
     font-weight: 300;
     font-size: 14px;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding-top: 20px;
 }
 .fa-caret-up{
     color: darkgray;
 }
+.badge{
+    background-color: #008E9B;
+    color: white;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 5px;
+    /* margin-top: 20px; */
+}
 .feedback__row--badgeLetter{
     text-align: center;
-    
+    font-size: 27px;
+    font-weight: 600;
 }
 .feedback__row--text{
     display: flex;
     flex-direction: column;
+    padding-right: 40px;
+    padding-bottom: 30px;
 }
 .feedback__row--daysAgo{
     font-weight: 300;
-    font-size: 14px;
+    font-size: 13px;
+    padding-right: 30px;
+    padding-top: 20px;
 }
 /* END OF CONTAINER */
 
@@ -231,22 +254,30 @@ td{
     flex: 1;
 }
 .company__name{
-    color: #3b444b;
+    /* color: #3b444b; */
+    color: #B39CD0;
     padding: 8px 16px;
     margin: 10px;
-    background-color: #FAF9F6;
-    opacity: 0.2;
+    background-color: #845EC2;
+    opacity: 0.9;
     border-radius: 20px;
 }
 
+
+
 /* to display #hashtag bullets */
 .company__name::before{
-    color: grey;
+    color: #B39CD0;
     display: inline-block;
     width: 9px;
 }
 .company__name::before{
     content: "\f292";
+}
+
+.company__name:hover{
+    color: #FBEAFF;
+    background-color: #B39CD0;
 }
 .company__name--hashtag{
     

@@ -1,5 +1,9 @@
 const textareaEl = document.querySelector('.textarea__textarea');
 const charactersLeftEl = document.querySelector('.textarea__textarea--characters');
+const listEl = document.querySelector('.company');
+const hashtag = document.querySelector('.company__name--hashtag');
+
+
 
 function charactersLeft(){
     //get current number of characters typed in textarea
@@ -23,7 +27,7 @@ fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
 .then(response => {return response.json();})
 .then(data => {
     data.feedbacks.forEach(company => {
-        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td><td class="feedback__row--badgeLetter">${company.badgeLetter}</td>
+        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td><td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
 
         <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
         <span class="feedback__row--textFeedback"> ${company.text}
@@ -126,6 +130,9 @@ submitFormEl.addEventListener('submit', (event) => {
 
 //when hashtag buttons are clicked filter data from API to display only those items
 //on hover effect for #buttons
-
+listEl.addEventListener('click', (company) => {
+    console.log(listEl.value);
+    console.log(hashtag);
+})
 
 //display data list in descending order of upvote
