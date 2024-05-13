@@ -1,9 +1,11 @@
 const textareaEl = document.querySelector('.textarea__textarea');
 const charactersLeftEl = document.querySelector('.textarea__textarea--characters');
 const companyListEl = document.querySelector('.company');
+let maxCharacters = 150;
+const maxCharactersEl = document.querySelector('textarea__textarea--characters');
 
-const listCompanyEl = document.querySelector('.company__name');
-const hashtagName = document.querySelector('.company__name--hashtag');
+// const listCompanyEl = document.querySelector('.company__name');
+// const hashtagName = document.querySelector('.company__name--hashtag');
 
 
 
@@ -12,7 +14,7 @@ function charactersLeft(){
     const numberOfCharacters = textareaEl.value.length;
 
     //get and set number of characters left
-    const charactersLeft = 150 - numberOfCharacters;
+    const charactersLeft = maxCharacters - numberOfCharacters;
     charactersLeftEl.textContent = charactersLeft;
 
     //set conditions when characters are maxed out
@@ -69,15 +71,24 @@ async function sendFormData(){
     // const data = Object.fromEntries(formData);
 
     //PROBLEM WAS TRYING TO USE FORMDATA INSTEAD OF TEXTAREA VALUE
-    console.log(textareaEl.value);
+    //extract data for object from textarea input
+    const feedbackText = textareaEl.value;
+
+    //split(" ") to separate company name from text. substring(1) to return company name without # at index 0
+    const companyName = feedbackText.split(" ").filter((company) => company.includes("#")).toString().substring(1);
+
+    const firstLetterOfCompanyName = companyName.substring(0,1);
+
+    const upvoteCount = 0;
+    const daysAgo = 0;
 
     //object to return to API
     const feedbackInput = {
-        company: "Test",
-        badgeLetter: "T",
-        upvoteCount: 0,
-        daysAgo: 0,
-        text: "Testing POST"
+        company: companyName,
+        badgeLetter: firstLetterOfCompanyName,
+        upvoteCount: upvoteCount,
+        daysAgo: daysAgo,
+        text: feedbackText
     }
 
     console.log(feedbackInput);
@@ -96,6 +107,16 @@ async function sendFormData(){
     } catch(error){
         console.log("Error: " + error)
     }
+
+    //Append and display submitted data (feedbackInput) on DOM (Code repeated above violating DRY principle)
+    const htmlMarkup = `<tr class="feedback__row">
+    <td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${upvoteCount}</td>
+    <td class="feedback__row--badgeLetter"><span class="badge">${firstLetterOfCompanyName}</span></td>
+    <td class="feedback__row--text"> <span class="feedback__row--textCompany">${companyName} </span><span class="feedback__row--textFeedback"> ${feedbackText}</span></td>
+    <td class="feedback__row--daysAgo">${daysAgo}d</td></tr>`;
+        
+    document.querySelector('.feedback__row').insertAdjacentHTML('afterend', htmlMarkup);
+    
 }
 
 
@@ -106,14 +127,16 @@ submitFormEl.addEventListener('submit', (event) => {
     // when submit is clicked check if # was used in input
     if(feedback.value != "" && feedback.value.includes('#')){
         //if yes, highlight textarea border green for success and submit form 
-        console.log(textareaEl.value);
         sendFormData();
         textareaEl.classList.add('textarea__textarea--success');
-        //clear textarea and remove green border
+
+        //clear textarea, remove green border, and reset counter
         textareaEl.value = textareaEl.value.replace(textareaEl.value, "");
         setTimeout(function(){
             textareaEl.classList.remove('textarea__textarea--success'); 
         }, 2000);
+       // maxCharactersEl.textContent = 150;
+        
     }else{
         //if no highlight red for fail
         console.log("error");
@@ -144,7 +167,7 @@ submitFormEl.addEventListener('submit', (event) => {
 // })
 
 
-//Append and display submitted data on DOM
+
 
 //when hashtag buttons are clicked filter data from API to display only those items
 //on hover effect for #buttons
@@ -177,5 +200,4 @@ companyListEl.addEventListener('click', function(event){
 
 });
 
-//display data list in descending order of upvote
-//the fetched data is already sorted. Check CSS to display it in reverse column
+//display data list in descending order of upvote. The fetched data is already sorted. Check CSS to display it in reverse column
