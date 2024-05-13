@@ -77,7 +77,7 @@ async function sendFormData(){
     //split(" ") to separate company name from text. substring(1) to return company name without # at index 0
     const companyName = feedbackText.split(" ").filter((company) => company.includes("#")).toString().substring(1);
 
-    const firstLetterOfCompanyName = companyName.substring(0,1);
+    const firstLetterOfCompanyName = companyName.substring(0,1).toUpperCase();
 
     const upvoteCount = 0;
     const daysAgo = 0;
@@ -179,7 +179,7 @@ companyListEl.addEventListener('click', function(event){
     console.log(event.target); //returned button tag == same output as console.log(hashtagName)
     // console.log(event.target.value);
     
-
+    console.log(event);
     // //get the name of company
     // const clickedCompany = event.target;
     // const companyName = companyListEl.textContent;
