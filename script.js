@@ -196,6 +196,8 @@ function onclickHandler(company){
 
 companyListEl.addEventListener('click', function(event){
     //get the name of company clicked to filter results by
+    if (event.target.className === "company") return;
+
     const clickedHashtag = event.target.textContent.trim().toLowerCase();
     console.log(clickedHashtag);
 
