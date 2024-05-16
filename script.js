@@ -5,8 +5,9 @@ let maxCharacters = 150;
 const maxCharactersEl = document.querySelector('.textarea__textarea--characters');
 const feedbackRowsEl = document.querySelector('.feedback__row');
 const feedbackTableEl = document.querySelector('.feedback__table');
-
-const companyListItemEl = document.querySelector('.company__name');
+const upvoteEl = document.querySelector('.feedback__row--upvote');
+const submitFormEl = document.querySelector('#submitForm');
+const companyListItemEl = document.querySelector('.fa-caret-up');
 
 
 
@@ -28,22 +29,53 @@ function charactersLeft(){
 
 textareaEl.addEventListener('input', charactersLeft);
 
+
 //fetch and display company feedback data using a table
-fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
-.then(response => {return response.json();})
-.then(data => {
-    data.feedbacks.forEach(company => {
-        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td><td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
+// fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
+// .then(response => {return response.json();})
+// .then(data => {
+//     data.feedbacks.forEach(company => {
+//         const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td>
+//         <td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
+
+//         <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
+//         <span class="feedback__row--textFeedback"> ${company.text}</span></td>
+
+//         <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
+//         feedbackRowsEl.insertAdjacentHTML('afterend', htmlMarkup);
+//     });
+// })
+// .catch(function(error){console.log("Error: " + error)});
+
+
+//make fetch async
+const getFeedbacks = async () => {
+    try{
+        const response = await fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks');
+        const data = await response.json();
+        return data
+        
+    } catch(error){
+        console.log("Error: " + error)
+    }
+}
+
+const displayFeedbacks = async () => {
+    const data = await getFeedbacks();
+
+    let feedbackDisplay = data.feedbacks.forEach((company) => {
+        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td>
+        <td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
 
         <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
-        <span class="feedback__row--textFeedback"> ${company.text}
-        </span></td>
+        <span class="feedback__row--textFeedback"> ${company.text}</span></td>
 
         <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
-        document.querySelector('.feedback__row').insertAdjacentHTML('afterend', htmlMarkup);
-    });
-})
-.catch(function(error){console.log("Error: " + error)});
+        feedbackRowsEl.insertAdjacentHTML('afterend', htmlMarkup);
+    })
+}
+
+displayFeedbacks();
 
 //fetch and display company feedback data from api using bullet list
 // fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
@@ -64,9 +96,6 @@ fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
 
 
 //validate input and handle form submission
-const submitFormEl = document.querySelector('#submitForm');
-
-
 async function sendFormData(){
     //associate the FormData object with the form element
     // const formData = new FormData(submitFormEl); //methods = get, set, delete, append data from form
@@ -137,7 +166,7 @@ submitFormEl.addEventListener('submit', (event) => {
         setTimeout(function(){
             textareaEl.classList.remove('textarea__textarea--success'); 
         }, 2000);
-       // maxCharactersEl.textContent = 150;
+       maxCharactersEl.textContent = maxCharacters;
         
     }else{
         //if no highlight red for fail
@@ -149,44 +178,40 @@ submitFormEl.addEventListener('submit', (event) => {
     }
 })
 
-// submitFormEl.addEventListener('submit', (event) =>{
-//     event.preventDefault();
-
-//     const formData = new FormData(submitFormEl);
-//     const data = Object.fromEntries(formData);
-
-//     fetch('https://reqres.in/api/users',{
-//         method: "POST",
-//         //specify content type
-//         headers:{
-//             'Content-Type': 'application/json'
-//         },
-//         //set the FormData instance as the request body
-//         body: JSON.stringify(data)
-//     }).then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.log(error));
+// upvoteEl.addEventListener('click', function(event){
+//     console.log("hello");
 // })
-
-
-
-
 //when hashtag buttons are clicked filter data from API to display only those items
 //on hover effect for #buttons
+
 function onclickHandler(company){
     
 }
 
-companyListItemEl.addEventListener('click', function (event){
-    console.log(event.target.textContent);
-    //get the name of company clicked to filter results by
-    const clickedHashtag = event.target.textContent.trim(); //only returns first item. Needs a loop
-})
+// companyListItemEl.addEventListener('click', function (event){
+//     console.log(event.target.textContent);
+//     //get the name of company clicked to filter results by
+//     const clickedHashtag = event.target.textContent.trim(); //only returns first item. Needs a loop
+// })
 
 companyListEl.addEventListener('click', function(event){
     //get the name of company clicked to filter results by
     const clickedHashtag = event.target.textContent.trim().toLowerCase();
-    console.log(clickedHashtag)
+    console.log(clickedHashtag);
+
+    // feedbackRowsEl.childNodes.forEach(childNode =>{
+    //     //ignore text
+    //     if(childNode.nodeType === 3) return;
+
+    //     //get name from feedback row
+            // error in childNode.querySelector
+    //     const nameFromFeedback = childNode.querySelector('.feedback__row--textCompany').innerText.toLowerCase();
+
+    //     //remove unmatched company name
+    //     if(clickedHashtag !== nameFromFeedback){
+    //         childNode.remove();
+    //     }
+    // })
 
     //iterate through feedback rows to extract cell data
     for (let row of feedbackTableEl.rows) 
@@ -199,8 +224,16 @@ companyListEl.addEventListener('click', function(event){
         //filter cell data for company name
         const matchingName = cells.split(" ").filter((company) => company.includes(clickedHashtag)).toString();
         console.log(matchingName);
+
+      
         
         //display filtered result
+        if(clickedHashtag !== matchingName){
+            //let row with matching name be visible and row without be hidden
+            feedbackRowsEl.hidden = true;
+            //row.hidden = true;
+            row.cells.hidden = true;
+        }
        
         }
     }

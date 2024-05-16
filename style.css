@@ -39,6 +39,8 @@ li{
     writing-mode:vertical-rl;
     transform: rotate(-180deg); /* transform: scale(-1,-1); */
     flex: 1;
+    margin-bottom: -165px;
+    color: #B39CD0;
 }
 
 .container__div{
@@ -199,8 +201,10 @@ textareaBottom__submit becomes textarea__textarea--submit */
 }
 
 .feedback__table{
-
+    display: flex;
+    flex-direction: column-reverse;
 }
+
 .feedback__row{
       
 }
@@ -257,6 +261,7 @@ td{
 
 .company{
     flex: 1;
+    margin-top: -600px;
 }
 .company__name{
     /* color: #3b444b; */
@@ -266,6 +271,8 @@ td{
     background-color: #845EC2;
     opacity: 0.9;
     border-radius: 20px;
+    width: min-content;
+    display: flex;
 }
 
 
@@ -275,6 +282,7 @@ td{
     color: #B39CD0;
     display: inline-block;
     width: 9px;
+    margin-right: 5px;
 }
 .company__name::before{
     content: "\f292";
