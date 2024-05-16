@@ -105,6 +105,9 @@ textareaBottom__submit becomes textarea__textarea--submit */
 .textarea__textarea--fail{
     border: 1px solid red;
 }
+.textarea__bottom{
+    display: flex;
+}
 .textarea__textarea--characters{
     color: white;
     font-size: 13px;
@@ -126,6 +129,7 @@ textareaBottom__submit becomes textarea__textarea--submit */
     position: absolute;
     right: 500px;
     top: 280px; 
+    /* margin-left: auto; */
 
     /* position: absolute;
     left: 62%;

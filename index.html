@@ -32,8 +32,11 @@
             <form action="" method="post" id="submitForm">
                 <section class="textarea"></section>
                 <textarea name="" id="feedback" type="text" class="form-control textarea__textarea" placeholder="Enter your feedback here, remember to #hashtag the company &#xF303;" spellcheck="false" maxlength="150"></textarea>
-                <span class="textarea__textarea--characters">150</span>
-                <button type="submit" class="textarea__textarea--submit">SUBMIT</button>
+                <section class="textarea__bottom">
+                    <span class="textarea__textarea--characters">150</span>
+                    <button type="submit" class="textarea__textarea--submit">SUBMIT</button>
+                </section>
+                
             </section>
             </form>
             
@@ -48,7 +51,7 @@
         </main>  -->
 
         <main class="container__main">
-            <table class="feedback__table">
+            <table class="feedback__table" id="feedback__table">
                 <tr class="feedback__row">         
                     <!-- <td class="feedback__row--upvote">
                         <i class="fa-solid fa-caret-up"></i>

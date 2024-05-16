@@ -2,10 +2,12 @@ const textareaEl = document.querySelector('.textarea__textarea');
 const charactersLeftEl = document.querySelector('.textarea__textarea--characters');
 const companyListEl = document.querySelector('.company');
 let maxCharacters = 150;
-const maxCharactersEl = document.querySelector('textarea__textarea--characters');
+const maxCharactersEl = document.querySelector('.textarea__textarea--characters');
+const feedbackRowsEl = document.querySelector('.feedback__row');
+const feedbackTableEl = document.querySelector('.feedback__table');
 
-// const listCompanyEl = document.querySelector('.company__name');
-// const hashtagName = document.querySelector('.company__name--hashtag');
+const companyListItemEl = document.querySelector('.company__name');
+
 
 
 
@@ -175,28 +177,33 @@ function onclickHandler(company){
     
 }
 
+companyListItemEl.addEventListener('click', function (event){
+    console.log(event.target.textContent);
+    //get the name of company clicked to filter results by
+    const clickedHashtag = event.target.textContent.trim(); //only returns first item. Needs a loop
+})
+
 companyListEl.addEventListener('click', function(event){
-    console.log(event.target); //returned button tag == same output as console.log(hashtagName)
-    // console.log(event.target.value);
-    
-    console.log(event);
-    // //get the name of company
-    // const clickedCompany = event.target;
-    // const companyName = companyListEl.textContent;
-    // console.log(companyName); //returned all company names
+    //get the name of company clicked to filter results by
+    const clickedHashtag = event.target.textContent.trim().toLowerCase();
+    console.log(clickedHashtag)
 
-    // const clickedCompanyName = listCompanyEl.textContent;
-    // console.log(clickedCompanyName); //returned ByteGrad
+    //iterate through feedback rows to extract cell data
+    for (let row of feedbackTableEl.rows) 
+    {
+        for(let cell of row.cells) 
+        {
+        const cells = cell.innerText.toLowerCase();
+       // console.log(cells);
 
-    // const name = clickedCompany.textContent;
-    // console.log(typeof clickedCompany ); //object
-
-    // //use name of company to filter data
-    // console.log(hashtagName); //returned button tag of first element
-    // console.log(typeof hashtagName); //object
-    // console.log(hashtagName.textContent);
-
-    //display filtered result
+        //filter cell data for company name
+        const matchingName = cells.split(" ").filter((company) => company.includes(clickedHashtag)).toString();
+        console.log(matchingName);
+        
+        //display filtered result
+       
+        }
+    }
 
 });
 
