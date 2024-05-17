@@ -1,7 +1,7 @@
 const textareaEl = document.querySelector('.textarea__textarea');
 const charactersLeftEl = document.querySelector('.textarea__textarea--characters');
-const companyListEl = document.querySelector('.company');
 let maxCharacters = 150;
+const companyListEl = document.querySelector('.company');
 const maxCharactersEl = document.querySelector('.textarea__textarea--characters');
 const feedbackRowsEl = document.querySelector('.feedback__row');
 const feedbackTableEl = document.querySelector('.feedback__table');
@@ -9,15 +9,25 @@ const upvoteEl = document.querySelector('.feedback__row--upvote');
 const submitFormEl = document.querySelector('#submitForm');
 const companyListItemEl = document.querySelector('.fa-caret-up');
 
+let feedbackList = {};
 
+const renderFeedbackHtmlMarkup = (company) => {
+    const htmlMarkup = `<tr class="feedback__row"><td       class="feedback__row--upvote"><i class="fa-solid    fa-caret-up"></i>${company.upvoteCount}</td>
+    <td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
 
+    <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
+    <span class="feedback__row--textFeedback"> ${company.text}</span></td>
+
+    <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
+    feedbackRowsEl.insertAdjacentHTML('afterend', htmlMarkup);
+}
 
 function charactersLeft(){
     //get current number of characters typed in textarea
-    const numberOfCharacters = textareaEl.value.length;
+    const numberOfCharactersTyped = textareaEl.value.length;
 
     //get and set number of characters left
-    const charactersLeft = maxCharacters - numberOfCharacters;
+    const charactersLeft = maxCharacters - numberOfCharactersTyped;
     charactersLeftEl.textContent = charactersLeft;
 
     //set conditions when characters are maxed out
@@ -31,10 +41,33 @@ textareaEl.addEventListener('input', charactersLeft);
 
 
 //fetch and display company feedback data using a table
-// fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
-// .then(response => {return response.json();})
-// .then(data => {
-//     data.feedbacks.forEach(company => {
+fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
+.then(response => {return response.json();})
+.then(data => {
+    feedbackList = data.feedbacks.forEach(company => {
+        renderFeedbackHtmlMarkup(company);
+    });
+})
+.catch(function(error){console.log("Error: " + error)});
+console.log(feedbackList);
+
+
+//make fetch async
+// const getFeedbacks = async () => {
+//     try{
+//         const response = await fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks');
+//         const data = await response.json();
+//         return data
+        
+//     } catch(error){
+//         console.log("Error: " + error)
+//     }
+// }
+
+// const displayFeedbacks = async () => {
+//     const data = await getFeedbacks();
+
+//     let feedbackDisplay = data.feedbacks.forEach((company) => {
 //         const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td>
 //         <td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
 
@@ -43,39 +76,10 @@ textareaEl.addEventListener('input', charactersLeft);
 
 //         <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
 //         feedbackRowsEl.insertAdjacentHTML('afterend', htmlMarkup);
-//     });
-// })
-// .catch(function(error){console.log("Error: " + error)});
+//     })
+// }
 
-
-//make fetch async
-const getFeedbacks = async () => {
-    try{
-        const response = await fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks');
-        const data = await response.json();
-        return data
-        
-    } catch(error){
-        console.log("Error: " + error)
-    }
-}
-
-const displayFeedbacks = async () => {
-    const data = await getFeedbacks();
-
-    let feedbackDisplay = data.feedbacks.forEach((company) => {
-        const htmlMarkup = `<tr class="feedback__row"><td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${company.upvoteCount}</td>
-        <td class="feedback__row--badgeLetter"><span class="badge">${company.badgeLetter}</span></td>
-
-        <td class="feedback__row--text"> <span class="feedback__row--textCompany">${company.company} </span>
-        <span class="feedback__row--textFeedback"> ${company.text}</span></td>
-
-        <td class="feedback__row--daysAgo">${company.daysAgo}d</td></tr>`;
-        feedbackRowsEl.insertAdjacentHTML('afterend', htmlMarkup);
-    })
-}
-
-displayFeedbacks();
+// displayFeedbacks();
 
 //fetch and display company feedback data from api using bullet list
 // fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
@@ -97,18 +101,46 @@ displayFeedbacks();
 
 //validate input and handle form submission
 async function sendFormData(){
-    //associate the FormData object with the form element
-    // const formData = new FormData(submitFormEl); //methods = get, set, delete, append data from form
-    // const data = Object.fromEntries(formData);
-
-    //PROBLEM WAS TRYING TO USE FORMDATA INSTEAD OF TEXTAREA VALUE
-    //extract data for object from textarea input
+    //extract data for feedback object from textarea input
     const feedbackText = textareaEl.value;
 
-    //split(" ") to separate company name from text. substring(1) to return company name without # at index 0
-    const companyName = feedbackText.split(" ").filter((company) => company.includes("#")).toString().substring(1);
+    event.preventDefault(); //why this? to take over and prevent the browser's built-in form submission
 
-    const firstLetterOfCompanyName = companyName.substring(0,1).toUpperCase();
+    // when submit is clicked check if # was used in input
+    if(feedbackText != "" && feedbackText.includes('#')){
+        //if conditions are met submit form 
+        //sendFormData();
+
+        //highlight textarea border green for success
+        textareaEl.classList.add('textarea__textarea--success');
+   
+        //remove green border
+        setTimeout(function(){
+            textareaEl.classList.remove('textarea__textarea--success'); 
+        }, 2000);
+        
+        //clear textarea
+        textareaEl.value = "";
+
+        //reset counter
+        maxCharactersEl.textContent = maxCharacters;
+        
+    }else{
+        //if conditions are not met highlight textarea red for fail
+        console.log("Error! Could not submit form");
+        
+        textareaEl.classList.add('textarea__textarea--fail');
+
+        //remove red border
+        setTimeout(function(){
+            textareaEl.classList.remove('textarea__textarea--fail'); 
+        }, 2000);
+    }
+
+    //Use split(" ") to separate company name from text and use substring(1) to return company name without # at index 0
+    const companyName = feedbackText.split(" ").filter((company) => company.startsWith("#")).toString().substring(1);
+
+    const firstLetterOfCompanyName = companyName.at(0).toUpperCase();
 
     const upvoteCount = 0;
     const daysAgo = 0;
@@ -139,44 +171,12 @@ async function sendFormData(){
         console.log("Error: " + error)
     }
 
-    //Append and display submitted data (feedbackInput) on DOM (Code repeated above violating DRY principle)
-    const htmlMarkup = `<tr class="feedback__row">
-    <td class="feedback__row--upvote"><i class="fa-solid fa-caret-up"></i>${upvoteCount}</td>
-    <td class="feedback__row--badgeLetter"><span class="badge">${firstLetterOfCompanyName}</span></td>
-    <td class="feedback__row--text"> <span class="feedback__row--textCompany">${companyName} </span><span class="feedback__row--textFeedback"> ${feedbackText}</span></td>
-    <td class="feedback__row--daysAgo">${daysAgo}d</td></tr>`;
-        
-    document.querySelector('.feedback__row').insertAdjacentHTML('afterend', htmlMarkup);
-    
+    //Append and display submitted data (feedbackInput) on DOM 
+    renderFeedbackHtmlMarkup(feedbackInput);
+   
 }
 
-
-submitFormEl.addEventListener('submit', (event) => {
-    event.preventDefault(); //why this? to take over and prevent the browser's built-in form submission
-    const feedback = document.querySelector('#feedback');
-
-    // when submit is clicked check if # was used in input
-    if(feedback.value != "" && feedback.value.includes('#')){
-        //if yes, highlight textarea border green for success and submit form 
-        sendFormData();
-        textareaEl.classList.add('textarea__textarea--success');
-
-        //clear textarea, remove green border, and reset counter
-        textareaEl.value = textareaEl.value.replace(textareaEl.value, "");
-        setTimeout(function(){
-            textareaEl.classList.remove('textarea__textarea--success'); 
-        }, 2000);
-       maxCharactersEl.textContent = maxCharacters;
-        
-    }else{
-        //if no highlight red for fail
-        console.log("error");
-        textareaEl.classList.add('textarea__textarea--fail');
-        setTimeout(function(){
-            textareaEl.classList.remove('textarea__textarea--fail'); 
-        }, 2000);
-    }
-})
+submitFormEl.addEventListener('submit', sendFormData)
 
 // upvoteEl.addEventListener('click', function(event){
 //     console.log("hello");
